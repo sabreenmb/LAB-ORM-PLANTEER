@@ -1,0 +1,41 @@
+.btn{
+    color: white;
+    background-color: black;
+    font-size: 12px;
+    padding: 9px 20px;
+}
+
+.rubik-bubbles-regular {
+    font-family: "Rubik Bubbles", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+    
+.navbar-brand{
+    font-family: "Rubik Bubbles", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+}
+a i{
+    color: #969090;
+}
+h1{
+    font-size: 86px;
+}
+h3{
+    font-size: 48px;
+    text-align: center;
+}
+.search-section{
+    background-image:url("/static/images/plant-bg-9.jpg");
+    background-repeat: no-repeat;
+    height: 60vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-attachment:local;
+    
+
+}
+
