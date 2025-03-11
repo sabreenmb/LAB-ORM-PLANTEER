@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Planteer {% endblock %}
+
+{% block content %}
+
+<section class="container-fluid d-flex flex-column justify-content-start">
+    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+        <h4 class="">All Plants</h4>
+        <a href="{% url 'plants:search_plants_view'%}" class="nav-link">Search <i class="bi bi-search"></i></a>
+    </div>
+
+
+    <div class="container-fluid p-0">
+        <div class="row cutom-card ">
+            {% for plant in plants %}
+            <div class="col-auto mb-sm-3"> 
+                <div class="d-flex flex-column me-1 ">
+                    <img src="{{ plant.image.url }}" class="plant-image mb-3" alt="{{ plant.name }}">
+                    <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn"> <h5>{{ plant.name }}</h5></a>
+                    <p>{{ plant.about }}</p>
+                    <h6>{{ plant.category }}</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</section>
+{%endblock%}

@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Planteer {% endblock %}
+
+{% block content %} 
+
+<section class="container-fluid  ">
+    
+        <div class="row d-flex flex-row justify-content-between mb-3"> 
+            
+            <img src="{{ plant.image.url }}" class="row-col-6 col-ms-12  details-image  " alt="{{ plant.name }}">
+            <div class="col-5 d-flex flex-column align-items-start justify-content-between ms-3 ">
+                <div class=" d-flex flex-column align-items-start ">
+                    <h2 >{{ plant.name }}</h2> 
+                    <h5 class="text-muted my-3">{{ plant.get_category_display }}</h5>                    <p>{{ plant.about }}</p>
+                    <h6 class="text-bold">Is Edible: {%if plant.is_edible == False %}No{%else%} Yes{%endif%}</h6>
+                    <h6 class="text-bold">Used For: <br>{{ plant.used_for }}</h6>
+
+                </div>
+                    <div class="d-flex flex-row me-auto mt-4 gap-1">
+                        <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-dark">update</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#alert">delete</button>
+                    
+                    </div>
+                </div>
+                    
+        </div>
+
+
+</section>
+
+
+<div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Plant</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are You sure you want to delete {{plant.name}} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'plants:delete_plant_view' plant.id %}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+{%endblock%}

@@ -3,19 +3,41 @@
 {% block title %} Planteer {% endblock %}
 
 {% block content %}
-<section class="search-section container-fluid d-flex flex-column align-items-center justify-content-center gap-2">
+<section class="search-section container-fluid d-flex flex-column align-items-center justify-content-center gap-2 mb-5">
     <h1>Planteer</h1>
-    <h3>Plant Database For Plants Lovers</h3>
+    <h2>Plant Database For Plants Lovers</h2>
     <div class="container-fluid mt-4">
-        <form action="#" method="get" class="row justify-content-center align-items-center g-2">
+        <form action="{%url 'plants:search_plants_view'%}" method="get" class="row justify-content-center align-items-center g-2">
         <div class="col-6">
             <input type="search" placeholder="Search for Plant..." id="plant-search" name="search" class="form-control me-1 ">
         </div>
         <div class="col-auto">
-            <button class="btn " type="submit">Search</button>
+            <button class="btn btn-dark " type="submit">Search</button>
         </div>
         </form>
 </div>
+
+</section>
+<section class="container-fluid d-flex flex-column  justify-content-start">
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <h4 class="">Plants</h4>
+        <a href="{% url 'plants:all_plants_view'%}" class="nav-link">More <i class="bi bi-arrow-right"></i></a>
+    </div>
+<div class="container-fluid">
+    <div class="row cutom-card">
+        {% for plant in plants %}
+        <div class="col-auto mb-sm-3"> 
+            <div class="d-flex flex-column me-1 ">
+                <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3" alt="{{ plant.name }}">
+                <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn"> <h5>{{ plant.name }}</h5></a>
+                <p>{{ plant.about }}</p>
+                <h6>{{ plant.category }}</h6>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 </section>
 {%endblock%}

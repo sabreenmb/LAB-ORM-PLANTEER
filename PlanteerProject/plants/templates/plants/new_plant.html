@@ -6,32 +6,31 @@
 {% block content %}
 
 <section class="container-fluid ">
-    <h3 class="mb-3">New Plant</h3>
+    <h3 class="row justify-content-center mb-4 ">New Plant</h3>
     <form action="{%url 'plants:add_plant_view' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group row justify-content-center mb-1">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control input-style" id="name" name="name" required>
             </div>
         </div>
         <div class="form-group justify-content-center row mb-1">
             <label for="about" class="col-sm-2 col-form-label">About</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="about" name="about" required>
+                <input type="text" class="form-control input-style" id="about" name="about" required>
             </div>
         </div>
         <div class="form-group justify-content-center row mb-1">
             <label for="used_for" class="col-sm-2 col-form-label">Used For</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="used_for" name="used_for" required>
+                <input type="text" class="form-control input-style" id="used_for" name="used_for" required>
             </div>
         </div>
         <div class="form-group justify-content-center row mb-1">
             <label class="col-sm-2 col-form-label" for="category">Category</label>
             <div class="col-sm-6">
-                <select class="form-control scrollable-select my-1 mr-sm-2  mr-md-2" id="category" name="category" required>
-                    <option value="category">Category</option>
+                <select class="form-control input-style my-1 mr-sm-2  mr-md-2" id="category" name="category" size="3" required>
 
                     {%for val , label in CategoryChoices %}
                     <option value="{{val}}">{{label}}</option>
@@ -42,7 +41,7 @@
         <div class="form-group justify-content-center row mb-1">
             <label for="image" class="col-sm-2 col-form-label">Plant Photo</label>
             <div class="col-sm-6">
-                <input type="file" name="image" class="form-control" accept="image/*" required/>
+                <input type="file" name="image" class="form-control input-style" accept="image/*" required/>
             </div>
         </div>
 
@@ -50,7 +49,7 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="is_edible" id="is_edible" value="True">
+                <input class="form-check-input " type="checkbox" name="is_edible" id="is_edible" value="True">
                 <label class="form-check-label" for="is_edible">
                   Edible
                 </label>
@@ -62,7 +61,7 @@
 
         <div class="row justify-content-center my-3">
             <div class="col-sm-8">
-                <input type="submit" class="btn form-control" value="Add Plant"/>
+                <input type="submit" class="btn btn-dark form-control" value="Add Plant"/>
             </div>
         </div>
 

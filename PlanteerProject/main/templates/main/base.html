@@ -14,23 +14,23 @@
 
     </head>
     <body>
-        <header class="container-fuild m-5 sticky-top">
+        <header class="container-fuild m-5 fixid-top">
             <nav class="navbar navbar-expand-md ">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Planteer</a>
+                    <a class="navbar-brand" href="{% url 'main:home_view' %}">Planteer</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#right-nav" aria-controls="right-nav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="right-nav">
                         <ul class="navbar-nav align-items-center ms-auto mb-2 mb-md-0 gap-4">
                             <li class="nav-item"> 
-                                <a class="nav-link" aria-current="page" href="#">All Plants</a>
+                                <a class="nav-link" aria-current="page" href="{% url 'plants:all_plants_view'%}">All Plants</a>
                             </li>
                             <li class="nav-item "> 
                                 <a class="nav-link" href="#">Contact Us</a>
                             </li>
                             <li class="nav-item ">
-                                <a href="{%url 'plants:add_plant_view' %}" class="btn" aria-disabled="true">Add Plant</a>
+                                <a href="{%url 'plants:add_plant_view' %}" class="btn btn-dark" aria-disabled="true">Add Plant</a>
                             </li>
                         </ul>
                     </div>
@@ -38,7 +38,7 @@
             </nav>
 
         </header>
-        <main class="container-fuild m-5">
+        <main class="container-fuild mx-5">
             {%block content%}
 
             {%endblock%}
@@ -100,6 +100,8 @@
 
             </footer>
         </main>
+        {%block extra%}
+        {%endblock%}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     </body>
