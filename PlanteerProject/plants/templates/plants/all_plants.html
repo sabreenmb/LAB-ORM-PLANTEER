@@ -27,7 +27,7 @@
                     Categories
                 </button>
                 <ul class="dropdown-menu" style="max-height: 150px; overflow-y: auto;">
-                    
+
                     {% for val, label in CategoryChoices %}
                     <li><a class="dropdown-item" name="{{val}}" href="{% url 'plants:filter_category_view' val%}">{{ label }}</a></li>
                     {% endfor %}
@@ -41,14 +41,14 @@
     <div class="container-fluid p-0">
         <div class="row cutom-card ">
             {% for plant in plants %}
-            <div class="col-auto mb-sm-3">
+            <div class="col-12 col-md-6 col-xl-4 mb-sm-3"> 
                 <div class="d-flex flex-column me-1 ">
                     <img src="{{ plant.image.url }}" class="plant-image mb-3" alt="{{ plant.name }}">
                     <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn">
                         <h5>{{ plant.name }}</h5>
                     </a>
                     <p>{{ plant.about }}</p>
-                    <h6>{{ plant.category }}</h6>
+                    <h6>{{ plant.get_category_display }}</h6>
                 </div>
             </div>
             {% endfor %}

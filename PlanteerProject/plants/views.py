@@ -20,7 +20,7 @@ def all_plants_view(request:HttpRequest):
     is_edible = request.COOKIES.get("Edible", "False")
 
     plants= Plant.objects.filter(
-            Q(category=category) | Q(is_edible=is_edible)
+            Q(category=category) & Q(is_edible=is_edible)
         )
     return render(request , "plants/all_plants.html" ,{"plants":plants ,"CategoryChoices": Plant.CategoryChoices.choices})
 
