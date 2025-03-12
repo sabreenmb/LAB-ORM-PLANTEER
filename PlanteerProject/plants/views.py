@@ -16,8 +16,13 @@ def add_plant_view(request:HttpRequest):
     return render(request , "plants/new_plant.html" ,{"CategoryChoices": Plant.CategoryChoices.choices})
 
 def all_plants_view(request:HttpRequest):
-    plants= Plant.objects.all()
-    return render(request , "plants/all_plants.html" ,{"plants":plants})
+    category = request.COOKIES.get("category", "all")
+    is_edible = request.COOKIES.get("Edible", "False")
+
+    plants= Plant.objects.filter(
+            Q(category=category) | Q(is_edible=is_edible)
+        )
+    return render(request , "plants/all_plants.html" ,{"plants":plants ,"CategoryChoices": Plant.CategoryChoices.choices})
 
 def search_plants_view(request:HttpRequest):
     plants =Plant.objects.all()
@@ -69,4 +74,32 @@ def add_review_view(request:HttpRequest,plant_id:int):
         new_review.save()
     
     return redirect("plants:plant_details_view",plant_id =plant_id)
-        # return redirect(request.GET.get("next", "/"))
+
+
+def filter_category_view(request:HttpRequest,categ):
+    category = request.COOKIES.get("category", "all")
+    if category!=categ:
+        category=categ
+        print(category)
+    
+    response =redirect("plants:all_plants_view")
+    response.set_cookie("category",category)
+    return response
+          
+
+def filter_edible_view(request:HttpRequest):
+    is_edible = request.COOKIES.get("Edible", "False")
+
+    if is_edible =="True":
+        is_edible="False"
+    else:
+        is_edible="True"
+    
+    response =redirect("plants:all_plants_view")
+    response.set_cookie("Edible",is_edible)
+
+    return response
+          
+
+
+

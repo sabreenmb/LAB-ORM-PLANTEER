@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{%load static%}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="row d-flex flex-row justify-content-center mb-3">
+        <div class="col-12 d-md-none text-center mb-3">
+            <img src="{% static 'images/bg-13.jpeg' %}" alt="Current Image" class="contact-image img-fluid" />
+        </div>
+        <div class="col-12 col-md-7">
+            <h2 class="row justify-content-start mb-4">Contact Us</h2>
+
+            <form class="row g-3" action="{%url 'main:contact_view'%}" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required minlength="3" placeholder="Sabreen">
+                </div>
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required minlength="3" placeholder="Binsalman">
+                </div>
+                <div class="col-12">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" required name="email" placeholder="email@hotmail.com">
+                </div>
+                <div class="col-12">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="message" name="message" placeholder="Enter your question or message"></textarea>
+                </div>
+                <div class="col-12">
+                    <input type="submit" class="btn btn-dark form-control" value="Send Message" />
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-12 col-md-5 d-none d-md-flex justify-content-center align-items-start mt-3">
+            <img src="{% static 'images/pg-15.jpeg' %}" alt="Current Image" class=" contact-image img-fluid" />
+        </div>
+    </div>
+</section>
+{%endblock%}

@@ -12,5 +12,7 @@ urlpatterns=[
     path('<plant_id>/delete/' ,views.delete_plant_view,name="delete_plant_view"),
     path('<plant_id>/update/' ,views.update_plant_view,name="update_plant_view"),
     path("add/review/<plant_id>/", views.add_review_view, name="add_review_view"),
+    path("filter/<categ>/", views.filter_category_view, name="filter_category_view"),
+    path("filter/", views.filter_edible_view, name="filter_edible_view"),
 
 ]

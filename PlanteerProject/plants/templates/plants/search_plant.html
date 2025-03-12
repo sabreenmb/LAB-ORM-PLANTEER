@@ -30,7 +30,7 @@
                     <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3" alt="{{ plant.name }}">
                     <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn"> <h5>{{ plant.name }}</h5></a>
                     <p>{{ plant.about }}</p>
-                    <h6>{{ plant.category }}</h6>
+                    <h6>{{ plant.get_category_display }}</h6>
                 </div>
             </div>
             {% endfor %}

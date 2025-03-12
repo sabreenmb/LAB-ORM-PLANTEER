@@ -26,7 +26,7 @@
 <div class="container-fluid">
     <div class="row cutom-card">
         {% for plant in plants %}
-        <div class="col-auto mb-sm-3"> 
+        <div class="col-12 col-md-6 col-lg-4 mb-sm-3"> 
             <div class="d-flex flex-column me-1 ">
                 <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3" alt="{{ plant.name }}">
                 <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn"> <h5>{{ plant.name }}</h5></a>
