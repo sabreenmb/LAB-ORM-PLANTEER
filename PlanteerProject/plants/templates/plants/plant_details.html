@@ -2,53 +2,127 @@
 
 {% block title %} Planteer {% endblock %}
 
-{% block content %} 
+{% block content %}
 
-<section class="container-fluid  ">
-    
-        <div class="row d-flex flex-row justify-content-between mb-3"> 
-            
-            <img src="{{ plant.image.url }}" class="row-col-6 col-ms-12  details-image  " alt="{{ plant.name }}">
-            <div class="col-5 d-flex flex-column align-items-start justify-content-between ms-3 ">
-                <div class=" d-flex flex-column align-items-start ">
-                    <h2 >{{ plant.name }}</h2> 
-                    <h5 class="text-muted my-3">{{ plant.get_category_display }}</h5>                    <p>{{ plant.about }}</p>
-                    <h6 class="text-bold">Is Edible: {%if plant.is_edible == False %}No{%else%} Yes{%endif%}</h6>
-                    <h6 class="text-bold">Used For: <br>{{ plant.used_for }}</h6>
+<!-- Plant details -->
+<section class="container-fluid  mb-4">
 
-                </div>
-                    <div class="d-flex flex-row me-auto mt-4 gap-1">
-                        <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-dark">update</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#alert">delete</button>
-                    
-                    </div>
-                </div>
-                    
+  <div class="row d-flex flex-row justify-content-between mb-3">
+
+    <img src="{{ plant.image.url }}" class="row-col-6 col-ms-12  details-image  " alt="{{ plant.name }}">
+    <div class="col-5 d-flex flex-column align-items-start justify-content-between ms-3 ">
+      <div class=" d-flex flex-column align-items-start ">
+        <h2>{{ plant.name }}</h2>
+        <h5 class="text-muted my-3">{{ plant.get_category_display }}</h5>
+        <p>{{ plant.about }}</p>
+        <h6 class="text-bold">Is Edible: {%if plant.is_edible == False %}No{%else%} Yes{%endif%}</h6>
+        <h6 class="text-bold">Used For: <br>{{ plant.used_for }}</h6>
+
+      </div>
+      <div class="d-flex flex-row me-auto mt-4 gap-1">
+        <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-dark">update</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#alert">delete</button>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- delete alert -->
+<div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Plant</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are You sure you want to delete {{plant.name}} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'plants:delete_plant_view' plant.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- comment form  -->
+<section
+  class="comment-section container-fluid d-flex flex-column align-items-start justify-content-start gap-1 mb-5 pt-5">
+  <h4>Leave a Comment </h4>
+
+  <div class="container-fluid p-0 mt-3">
+    <form action="{% url 'plants:add_review_view' plant.id %}" method="post"
+      class="justify-content-start align-items-center g-2">
+      {% csrf_token %}
+      <div class=" d-flex flex-column gap-1">
+        <input type="text" placeholder="Full Name" minlength="5" name="full_name" class="form-control input-style"
+          required>
+        <textarea type="text" placeholder="comment..." minlength="3" maxlength="250" name="content"
+          class="form-control input-style" required></textarea>
+        <input class="btn btn-dark" type="submit" value="Add Comment" />
+      </div>
+
+    </form>
+  </div>
+
+</section>
+<!-- all comments -->
+<section class="container-fluid p-0 mt-4 d-flex flex-column  justify-content-start border-top pt-5">
+  <div class="pb-1 d-inline-flex justify-content-betweenr">
+    <h4>Comments ({{reviews.count}})</h4>
+  </div>
+  <div class="container-fluid p-0">
+    <div class="d-flex flex-row overflow-auto">
+      {% for review in reviews %}
+      <div class="d-inline-block mb-sm-3 mx-1">
+        <div class="card p-2 d-flex flex-column justify-content-between ">
+          <div>
+            <h4>{{review.full_name}}</h4>
+            <p>{{review.content }}</p>
+          </div>
+
+          <h6 class="text-muted d-inline-flex justify-content-end">{{review.created_at }}</h6>
         </div>
-
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 
 </section>
 
 
-<div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Plant</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are You sure you want to delete {{plant.name}} ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-          <a href="{% url 'plants:delete_plant_view' plant.id %}" class="btn btn-danger">Delete</a>
+
+<!-- related plants -->
+<section class="container-fluid p-0 mt-4 d-flex flex-column  justify-content-start border-top pt-5">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <h4 class="">Related Plants ({{related_plants.count}})</h4>
+    <a href="{% url 'plants:all_plants_view'%}" class="nav-link">More <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="container-fluid p-0">
+    <div class="row cutom-card">
+      {% for plant in related_plants %}
+      <div class="col-auto mb-sm-3">
+        <div class="d-flex flex-column me-1 ">
+          <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3" alt="{{ plant.name }}">
+          <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn">
+            <h5>{{ plant.name }}</h5>
+          </a>
+          <p>{{ plant.about }}</p>
+          <h6>{{ plant.get_category_display }}</h6>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
-  
-  
+
+
+</section>
+
 
 
 {%endblock%}

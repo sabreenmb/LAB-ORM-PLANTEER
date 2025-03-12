@@ -25,3 +25,9 @@ class Plant(models.Model):
     category=models.CharField(choices=CategoryChoices.choices , max_length=1024)
     is_edible=models.BooleanField()
     created_at=models.DateTimeField(auto_now_add=True)
+
+class Review(models.Model):
+    plant =models.ForeignKey(Plant, on_delete=models.CASCADE)
+    full_name= models.CharField(max_length=256)
+    content=models.TextField()
+    created_at=models.DateTimeField(auto_now_add=True)

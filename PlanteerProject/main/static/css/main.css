@@ -98,7 +98,16 @@ h2{
 .details-info{
     width: inherit;
 }
-
+.card{
+    height: 250px;
+    width: 400px;
+}
+.card h6{
+    font-size: 12px;
+}
+.card h4{
+    color: #10401c;
+}
 @media (min-width:0.98px) and (max-width: 575.98px){
     .details-image {
         min-width: 100%;
@@ -112,6 +121,10 @@ h2{
         border-radius: 25px;
         object-fit:fill;
         margin-bottom: 30px;
+    }
+    .card{
+        height: 300px;
+        width: 350px;
     }
 }
 

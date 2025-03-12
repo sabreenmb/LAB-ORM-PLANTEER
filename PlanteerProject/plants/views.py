@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest,HttpResponse
-from .models import Plant
+from .models import Plant,Review
 from django.db.models import Q
 
 # Create your views here.
+
 
 
 def add_plant_view(request:HttpRequest):
@@ -13,7 +14,6 @@ def add_plant_view(request:HttpRequest):
         return redirect("main:home_view")
         # return redirect(request.GET.get("next", "/"))
     return render(request , "plants/new_plant.html" ,{"CategoryChoices": Plant.CategoryChoices.choices})
-
 
 def all_plants_view(request:HttpRequest):
     plants= Plant.objects.all()
@@ -31,8 +31,9 @@ def search_plants_view(request:HttpRequest):
 
 def plant_details_view(request:HttpRequest, plant_id :int):
     plant =Plant.objects.get(pk=plant_id)
-
-    return render(request , "plants/plant_details.html" ,{"plant":plant})
+    reviews= Review.objects.filter(plant=plant)
+    related_plants=Plant.objects.filter(category=plant.category).exclude(pk=plant_id)[0:3]
+    return render(request , "plants/plant_details.html" ,{"plant":plant , "related_plants":related_plants ,"reviews":reviews})
 
 
 def delete_plant_view(request:HttpRequest, plant_id :int):
@@ -61,3 +62,11 @@ def update_plant_view(request:HttpRequest, plant_id :int):
     return render(request , "plants/plant_update.html" ,{"plant":plant ,"CategoryChoices": Plant.CategoryChoices.choices})
 
 
+def add_review_view(request:HttpRequest,plant_id:int):
+    if request.method == "POST":
+        selected_plant=Plant.objects.get(pk=plant_id)
+        new_review=Review(plant=selected_plant,full_name=request.POST['full_name'],content=request.POST['content'])
+        new_review.save()
+    
+    return redirect("plants:plant_details_view",plant_id =plant_id)
+        # return redirect(request.GET.get("next", "/"))
