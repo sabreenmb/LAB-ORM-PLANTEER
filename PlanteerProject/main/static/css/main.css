@@ -118,6 +118,8 @@ h2{
 .card h4{
     color: #10401c;
 }
+
+
 @media (min-width:0.98px) and (max-width: 575.98px){
     .details-image {
         min-width: 100%;
@@ -145,6 +147,7 @@ h2{
     }
 
 }
+
 
 
 @media (min-width: 575.98px) and (max-width: 767.98px){
