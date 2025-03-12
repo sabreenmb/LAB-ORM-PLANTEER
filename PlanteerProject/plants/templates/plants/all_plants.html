@@ -9,27 +9,38 @@
         <h4 class="">All Plants</h4>
         <div class="d-inline-flex  justify-content-end align-items-center gap-1">
             <a href="{% url 'plants:search_plants_view'%}" class="btn btn-dark nav-link">Search </a>
-            <form action="{% url 'plants:filter_edible_view' %}"  method="get" id="edibleForm">
-                <div class=" btn btn-dark">
-                    <input class="form-check-input" type="checkbox" id="gridCheck1" name="Edible" value="True" {%if request.GET.Edible%}checked{%endif%} >
-                    <label class="form-check-label" for="gridCheck1">
-                        Edible
-                    </label>
-                </div>
-            </form>
+ 
             
-   
+                <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Edible
+                
+                    </button>
+                    <ul class="dropdown-menu" style="max-height: 150px; overflow-y: auto;">
+                
+                        <li><a class="dropdown-item" name="all" href="?{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}Edible=All">All</a></li>
+                        <li><a class="dropdown-item" name="True" href="?{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}Edible=True">Yes</a></li>
+                        <li><a class="dropdown-item" name="False" href="?{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}Edible=False">No</a></li>
+                    </ul>
+                </div>
+
 
 
             <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Categories
+                    {%if request.GET.category%}
+                    {{request.GET.category}}
+                    {% else%}
+                    All categories
+                    {%endif%}
                 </button>
                 <ul class="dropdown-menu" style="max-height: 150px; overflow-y: auto;">
+                    <li><a class="dropdown-item" name="All" href="?category=All">Show All</a></li>
 
                     {% for val, label in CategoryChoices %}
-                    <li><a class="dropdown-item" name="{{val}}" href="{% url 'plants:filter_category_view' val%}">{{ label }}</a></li>
+                    <li><a class="dropdown-item" name="{{val}}" href="?{% if request.GET.Edible %}Edible={{ request.GET.Edible }}&{% endif %}category={{val}}">{{ label }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -41,8 +52,8 @@
     <div class="container-fluid p-0">
         <div class="row cutom-card ">
             {% for plant in plants %}
-            <div class="col-12 col-md-6 col-xl-4 mb-sm-3"> 
-                <div class="d-flex flex-column me-1 ">
+            <div class="col-12 col-md-6 col-xl-4 mb-sm-3">
+                <div class=" d-flex flex-column me-1 ">
                     <img src="{{ plant.image.url }}" class="plant-image mb-3" alt="{{ plant.name }}">
                     <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn">
                         <h5>{{ plant.name }}</h5>
