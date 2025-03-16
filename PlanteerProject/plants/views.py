@@ -32,7 +32,6 @@ def all_plants_view(request:HttpRequest):
 
 
 
-
     # plants= Plant.objects.filter(
     #         Q(category=category) & Q(is_edible=is_edible)
     #     )

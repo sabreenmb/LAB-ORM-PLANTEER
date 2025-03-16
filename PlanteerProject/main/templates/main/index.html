@@ -23,12 +23,13 @@
         <h4 class="">Plants</h4>
         <a href="{% url 'plants:all_plants_view'%}" class="nav-link">More <i class="bi bi-arrow-right"></i></a>
     </div>
+
 <div class="container-fluid">
     <div class="row cutom-card">
         {% for plant in plants %}
         <div class="col-12 col-md-6 col-lg-4 mb-sm-3"> 
             <div class="d-flex flex-column me-1 ">
-                <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3" alt="{{ plant.name }}">
+                <img src="{{ plant.image.url }}" class="plant-image img-fluid mb-3 w-100 object-fit" alt="{{ plant.name }}">
                 <a href="{% url 'plants:plant_details_view' plant.id%}" class="plant-btn"> <h5>{{ plant.name }}</h5></a>
                 <p>{{ plant.about }}</p>
                 <h6>{{ plant.get_category_display }} </h6>
@@ -36,8 +37,28 @@
         </div>
         {% endfor %}
     </div>
+  
 </div>
-
-
 </section>
+
+<div class="pagination d-flex justify-content-center align-items-center mt-5 gap-4">
+    {%if plants.has_previous%}
+        <div class="d-flex gap-1">
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{plants.previous_page_number}}">&laquo; previous</a>
+
+        </div>
+    {%endif%}
+    <div>
+        Page {{plants.number}} of {{plants.paginator.num_pages}}
+    </div>
+    {%if plants.has_next%}
+    <div class="d-flex gap-1">
+        <a href="?page={{plants.next_page_number}}">&laquo; first</a>
+        <a href="?page={{plants.paginator.num_page}}">&laquo; previous</a>
+
+    </div>
+    {%endif%}
+    
+</div>
 {%endblock%}

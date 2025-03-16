@@ -70,12 +70,12 @@ h2{
 }
 
 
-.plant-image{
+/* .plant-image{
     border-radius: 15px;
     height: 250px;
     width: 350px;
 
-}
+} */
 .plant-btn{
     text-decoration: none;
     color: #10401c;
@@ -151,10 +151,10 @@ h2{
 
 
 @media (min-width: 575.98px) and (max-width: 767.98px){
-    .plant-image {
+    /* .plant-image {
         width: 500px; 
         height: 300px; 
-    }
+    } */
     .cutom-card{
         justify-content: center;
     }
@@ -180,11 +180,11 @@ h2{
 
  }
 @media (min-width: 768px) and (max-width: 890.98px){
-    .plant-image {
+    /* .plant-image {
         width: 290px; 
         height: 200px; 
         
-    }
+    } */
     .update-image {
         max-width: 600px;
         width: 100% ;
